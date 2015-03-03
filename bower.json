@@ -1,0 +1,24 @@
+{
+  "name": "awty",
+  "version": "0.0.0",
+  "authors": [
+    "Sergio Acosta <sergio.acosta@gmail.com>"
+  ],
+  "description": "Are we there yet calculator",
+  "main": "index.html",
+  "license": "MIT",
+  "homepage": "https://bitbucket.org/sergioacosta/awty",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "~2.1.3",
+    "eonasdan-bootstrap-datetimepicker": "~4.0.0",
+    "bootstrap": "~3.3.2"
+  }
+}

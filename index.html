@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Are we there yet?</title>
+    <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+    <link href="styles.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <form action="">
+        <div class="row">
+            <div class='col-sm-6'>
+                <div class="form-group">
+                    <label for="current">We started at: </label>
+                    <div class='input-group date' id='datetimepicker1'>
+                        <input type='text' class="form-control input-lg" />
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="current">Current progress is: </label>
+                    <input type="text" id="current" class="form-control input-lg"/>
+                </div>
+                <div class="form-group">
+                    <label for="total">The goal: </label>
+                    <input type="text" id="total" value="100.0" class="form-control input-lg">
+                </div>
+                <button class="btn btn-primary">Are we there yet?</button>
+            </div>
+        </div>
+        </form>
+        <div class="row">
+            <div class="col-sm-6">
+                <div id="forecast"></div>
+                <span id="target"></span>
+            </div>
+        </div>
+    </div>
+
+<script src="bower_components/jquery/dist/jquery.min.js"></script>
+<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="bower_components/moment/min/moment.min.js"></script>
+<script src="bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
+<script>
+    var startDate;
+
+    $(document).ready(function() {
+
+        $('#datetimepicker1').datetimepicker().on("dp.change", function(e){
+            startDate = moment(e.date);
+        });
+
+        $("form").on('submit', function(e) {
+            e.preventDefault();
+            var elapsedSeconds = moment().diff(startDate, 'seconds');
+            var current = $('#current').val();
+            var total = $('#total').val();
+            var progress = (current * 100) / total;
+            console.log(progress);
+            var speed = elapsedSeconds / progress;
+            var remainingSeconds = (100 - progress) * speed;
+            var end = moment().add(remainingSeconds, 'seconds');
+            $('#forecast').text('We will be there... ' + end.fromNow());
+            $('#target').text('(' + end.format() + ')');
+        });
+    });
+</script>
+</body>
+</html>
