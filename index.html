@@ -10,24 +10,29 @@
 <body>
     <a href="https://github.com/sergio/awty"><img style="position: absolute; top: 0; left: 0; border: 0;" src="https://camo.githubusercontent.com/c6625ac1f3ee0a12250227cf83ce904423abf351/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f6c6566745f677261795f3664366436642e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_left_gray_6d6d6d.png"></a>
     <div class="container">
-        <form action="">
+        <form action="" data-toggle="validator">
         <div class="row">
             <div class='col-sm-6'>
                 <div class="form-group">
                     <label for="current">We started at: </label>
                     <div class='input-group date' id='datetimepicker1'>
-                        <input type='text' class="form-control input-lg" />
+                        <input type='text' class="form-control input-lg" data-error="Please enter the start date."  required />
                     <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
                     </span>
                     </div>
+                    <div class="help-block with-errors"></div>
                 </div>
                 <div class="form-group">
                     <label for="current">Current progress is: </label>
-                    <input type="text" id="current" class="form-control input-lg"/>
+                    <input type="number" id="current" class="form-control input-lg"
+                           data-error="Oops, that's not a number." min="0" step="any" required>
+                    <div class="help-block with-errors"></div>
                 </div>
                 <div class="form-group">
                     <label for="total">The goal: </label>
-                    <input type="text" id="total" value="100.0" class="form-control input-lg">
+                    <input type="text" id="total" value="100.0" class="form-control input-lg"
+                           data-error="Oops, that's not a number." min="0" step="any" required>
+                    <div class="help-block with-errors"></div>
                 </div>
                 <button class="btn btn-primary">Are we there yet?</button>
             </div>
@@ -45,6 +50,7 @@
 <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <script src="bower_components/moment/min/moment.min.js"></script>
 <script src="bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
+<script src="bower_components/bootstrap-validator/dist/validator.min.js"></script>
 <script>
     var startDate;
 
@@ -56,16 +62,18 @@
 
         $("form").on('submit', function(e) {
             e.preventDefault();
-            var elapsedSeconds = moment().diff(startDate, 'seconds');
-            var current = $('#current').val();
-            var total = $('#total').val();
-            var progress = (current * 100) / total;
-            console.log(progress);
-            var speed = elapsedSeconds / progress;
-            var remainingSeconds = (100 - progress) * speed;
-            var end = moment().add(remainingSeconds, 'seconds');
-            $('#forecast').text('We will be there... ' + end.fromNow());
-            $('#target').text('(' + end.format() + ')');
+            if($('form')[0].checkValidity()) {
+                var elapsedSeconds = moment().diff(startDate, 'seconds');
+                var current = $('#current').val();
+                var total = $('#total').val();
+                var progress = (current * 100) / total;
+                console.log(progress);
+                var speed = elapsedSeconds / progress;
+                var remainingSeconds = (100 - progress) * speed;
+                var end = moment().add(remainingSeconds, 'seconds');
+                $('#forecast').text('We will be there... ' + end.fromNow());
+                $('#target').text('(' + end.format() + ')');
+            }
         });
     });
 </script>
