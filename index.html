@@ -14,18 +14,18 @@
         <div class="row">
             <div class='col-sm-6'>
                 <div class="form-group">
+                    <label for="total">The goal: </label>
+                    <input type="text" id="total" value="100.0" class="form-control input-lg"
+                           data-error="Oops, that's not a number." min="0" step="any" required>
+                    <div class="help-block with-errors"></div>
+                </div>
+                <div class="form-group">
                     <label for="current">We started at: </label>
                     <div class='input-group date' id='datetimepicker1'>
                         <input type='text' class="form-control input-lg" data-error="Please enter the start date."  required />
                     <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
                     </span>
                     </div>
-                    <div class="help-block with-errors"></div>
-                </div>
-                <div class="form-group">
-                    <label for="total">The goal: </label>
-                    <input type="text" id="total" value="100.0" class="form-control input-lg"
-                           data-error="Oops, that's not a number." min="0" step="any" required>
                     <div class="help-block with-errors"></div>
                 </div>
                 <div class="form-group">
